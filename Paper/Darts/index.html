@@ -199,13 +199,13 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
       
       <label class="md-nav__link" for="nav-2">
-        Paper
+        Research
         <span class="md-nav__icon md-icon"></span>
       </label>
-      <nav class="md-nav" aria-label="Paper" data-md-level="1">
+      <nav class="md-nav" aria-label="Research" data-md-level="1">
         <label class="md-nav__title" for="nav-2">
           <span class="md-nav__icon md-icon"></span>
-          Paper
+          Research
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -316,6 +316,13 @@
           <li class="md-nav__item">
   <a href="#training-method" class="md-nav__link">
     Training Method
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gradient" class="md-nav__link">
+    Gradient
   </a>
   
 </li>
@@ -516,8 +523,48 @@
   
 
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Segmentation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Robotics
+      </a>
+    </li>
+  
+
+          
         </ul>
       </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Courses
+      </a>
     </li>
   
 
@@ -534,14 +581,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
       
-      <label class="md-nav__link" for="nav-3">
+      <label class="md-nav__link" for="nav-4">
         Tools
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Tools" data-md-level="1">
-        <label class="md-nav__title" for="nav-3">
+        <label class="md-nav__title" for="nav-4">
           <span class="md-nav__icon md-icon"></span>
           Tools
         </label>
@@ -564,30 +611,18 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../../ZMQ/ZMQIntro/" class="md-nav__link">
-        ZMQ
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
     
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-2" type="checkbox" id="nav-4-2" >
       
-      <label class="md-nav__link" for="nav-3-3">
+      <label class="md-nav__link" for="nav-4-2">
         Pytorch
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Pytorch" data-md-level="2">
-        <label class="md-nav__title" for="nav-3-3">
+        <label class="md-nav__title" for="nav-4-2">
           <span class="md-nav__icon md-icon"></span>
           Pytorch
         </label>
@@ -620,6 +655,18 @@
           
         </ul>
       </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ZMQ/ZMQIntro/" class="md-nav__link">
+        ZMQ
+      </a>
     </li>
   
 
@@ -701,6 +748,13 @@
           <li class="md-nav__item">
   <a href="#training-method" class="md-nav__link">
     Training Method
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gradient" class="md-nav__link">
+    Gradient
   </a>
   
 </li>
@@ -829,6 +883,20 @@ o^{(i,j)} = \arg\max_{o\in\mathcal{O}} \alpha_o^{(i,j)} \tag{3}
 \\ \text{s.t.} \quad w^*(\alpha) = \arg\min_{w} \mathcal{L}_{train}(w, \alpha) \tag{4}
 </script>
 也即：在当前的 training set，我们训练出一个最优的网络参数 <span><span class="MathJax_Preview">w^*</span><script type="math/tex">w^*</script></span>，然后根据当前的 <span><span class="MathJax_Preview">w^*</span><script type="math/tex">w^*</script></span> 在 validation set 上再更新我们的连接权重 <span><span class="MathJax_Preview">\alpha</span><script type="math/tex">\alpha</script></span> </p>
+<h4 id="gradient">Gradient<a class="headerlink" href="#gradient" title="Permanent link">#</a></h4>
+<p>所有神经网络的优化过程都绕不开梯度，Darts 同样。由（4）式可知，我们对于优化 <span><span class="MathJax_Preview">\alpha</span><script type="math/tex">\alpha</script></span> 的梯度为：
+<script type="math/tex; mode=display">
+\nabla_{\alpha} \mathcal{L}_{val}(w^*(\alpha), \alpha)
+\approx 
+\nabla_\alpha\mathcal{L}_{val}(w - \xi\nabla_w\mathcal{L}_{train}(w,\alpha),\alpha) \tag{5}
+</script>
+这里将最优的 <span><span class="MathJax_Preview">w^*(\alpha)</span><script type="math/tex">w^*(\alpha)</script></span> 替换为 <span><span class="MathJax_Preview">w - \xi\nabla_w\mathcal{L}_{train}(w, \alpha)</span><script type="math/tex">w - \xi\nabla_w\mathcal{L}_{train}(w, \alpha)</script></span> 的原因是 1. 如果 <span><span class="MathJax_Preview">w</span><script type="math/tex">w</script></span> 足够接近最优值 <span><span class="MathJax_Preview">w^*</span><script type="math/tex">w^*</script></span>，那么后面的梯度也会趋近于0，近似成立。2.就算 <span><span class="MathJax_Preview">w</span><script type="math/tex">w</script></span> 并不能很接近 <span><span class="MathJax_Preview">w^*</span><script type="math/tex">w^*</script></span>，但我们可以保证算法的收敛性。在（5）的基础上，运用链式法则：
+<script type="math/tex; mode=display">
+w' = w - \xi\nabla_w\mathcal{L}_{train}(w,\alpha )\\
+(5) = \nabla_{\alpha}\mathcal{L}_{val}(w',\alpha) - \xi \nabla^2_{\alpha,w}\mathcal{L}_{train}(w,\alpha)
+\nabla_{w'}\mathcal{L}_{val}(w',\alpha)
+</script>
+</p>
 <h2 id="p-darts">P-Darts<a class="headerlink" href="#p-darts" title="Permanent link">#</a></h2>
 <h3 id="abstract_1">Abstract<a class="headerlink" href="#abstract_1" title="Permanent link">#</a></h3>
 <h3 id="introduction_1">Introduction<a class="headerlink" href="#introduction_1" title="Permanent link">#</a></h3>
